@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>¿En qué canal?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: plain, calm, large; built for an 80-year-old who wants one number.
+   IDEA: the LCD on a TV remote: the answer is a channel number you can type.
+   PICTURE: the big dial readout on each match and in the detail sheet.
+   COLOUR and TYPE: white/ink, deep pitch blue as dominant, signal red only for the dial; Barlow Condensed numbers, Barlow text.
+   LAYOUT: one app column (max 560px): platform, search, list; detail as a bottom sheet. */
+:root{color-scheme:light dark;
+--bg:light-dark(#ffffff,#0f1418);--panel:light-dark(#f2f5f7,#182027);--line:light-dark(#dde3e8,#2a343d);
+--ink:light-dark(#111619,#eef2f4);--quiet:light-dark(#56636d,#9aa8b2);
+--brand:light-dark(#0b4a6f,#5fb0dd);--brandInk:#ffffff;--dial:light-dark(#d92b1f,#ff6b5e);
+--lcd:light-dark(#16202a,#0a0e12);--lcdInk:#ff5a4c;
+--ok:light-dark(#1d7a46,#5fcf8d);--warn:light-dark(#a35d00,#f0b35a);--bad:light-dark(#b3261e,#ff8a80)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.5 Barlow,system-ui,sans-serif;overflow-x:clip}
+.app{max-width:560px;margin:0 auto;padding:0 16px 48px}
+header{padding:28px 0 12px}
+h1{font:700 44px/1.05 "Barlow Condensed",sans-serif;margin:0;text-wrap:balance}
+.sub{color:var(--quiet);font-size:15px;margin:6px 0 0}
+nav.tabs{display:flex;gap:8px;margin:16px 0 4px}
+nav.tabs a{flex:1;text-align:center;padding:10px;border-radius:12px;background:var(--panel);color:var(--ink);text-decoration:none;font-weight:600;min-height:44px}
+nav.tabs a[aria-current=page]{background:var(--brand);color:var(--brandInk)}
+.label{font-size:15px;color:var(--quiet);margin:18px 0 8px;font-weight:600}
+.plats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.plats button{font:600 17px Barlow,sans-serif;min-height:52px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.plats button[aria-pressed=true]{border-color:var(--brand);background:var(--brand);color:var(--brandInk)}
+input[type=search]{width:100%;font:18px Barlow,sans-serif;padding:14px 16px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--ink)}
+:focus-visible{outline:3px solid var(--dial);outline-offset:2px}
+.day{font:700 20px "Barlow Condensed",sans-serif;margin:24px 0 8px;color:var(--brand)}
+.match{display:grid;grid-template-columns:58px minmax(0,1fr) 96px;gap:12px;align-items:center;width:100%;text-align:left;padding:14px;margin-bottom:10px;border-radius:16px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font:inherit;cursor:pointer}
+.time{font:700 24px "Barlow Condensed",sans-serif;white-space:nowrap}
+.teams{font-weight:600;font-size:19px;line-height:1.25}
+.chan{font-size:14px;color:var(--quiet);margin-top:2px}
+.mini{background:var(--lcd);color:var(--lcdInk);border-radius:12px;text-align:center;padding:6px 4px}
+.mini b{display:block;font:700 34px/1 "Barlow Condensed",sans-serif;white-space:nowrap}
+.mini small{display:block;font-size:11px;color:#c9d3da;letter-spacing:.02em}
+.mini.na b{font-size:17px;line-height:1.3;color:#c9d3da}
+.st{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;margin-top:4px}
+.st::before{content:"";width:9px;height:9px;border-radius:50%;background:currentColor}
+.st.ok{color:var(--ok)}.st.prob{color:var(--warn)}.st.bad{color:var(--bad)}
+.empty{padding:24px;text-align:center;color:var(--quiet);background:var(--panel);border-radius:16px;margin-top:16px}
+.note{font-size:14px;color:var(--quiet);margin-top:28px}
+.note a,.sheet a{color:var(--brand)}
+/* bottom sheet */
+.scrim{position:fixed;inset:0;background:rgb(0 0 0 / .45);display:none;align-items:flex-end;justify-content:center;z-index:5}
+.scrim.open{display:flex}
+.sheet{background:var(--bg);width:100%;max-width:560px;max-height:92vh;overflow:auto;border-radius:20px 20px 0 0;padding:20px 18px 28px}
+.sheet h2{font:700 30px/1.1 "Barlow Condensed",sans-serif;margin:0}
+.close{float:right;min-width:44px;min-height:44px;border-radius:12px;border:0;background:var(--panel);color:var(--ink);font:600 16px Barlow,sans-serif;cursor:pointer}
+.lcd{background:var(--lcd);border-radius:18px;padding:18px;margin:16px 0;text-align:center;color:#c9d3da}
+.lcd .n{font:700 clamp(72px,24vw,120px)/1 "Barlow Condensed",sans-serif;color:var(--lcdInk);letter-spacing:.02em}
+.lcd .n.txt{font-size:clamp(34px,10vw,48px);line-height:1.2}
+.lcd .p{font-size:15px}
+.lcd .alt{font-size:15px;margin-top:6px}
+table{width:100%;border-collapse:collapse;font-size:16px}
+th,td{padding:10px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+td.num{text-align:right;font:700 22px "Barlow Condensed",sans-serif;white-space:nowrap}
+.warnline{font-size:14px;color:var(--warn)}
+ul.src{padding-left:20px;font-size:15px}
+/* dial editor */
+.edit td input{width:5.5em;font:600 18px Barlow,sans-serif;padding:8px;border-radius:10px;border:2px solid var(--line);background:var(--bg);color:var(--ink);text-align:center}
+.btn{font:600 16px Barlow,sans-serif;min-height:44px;padding:0 16px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer;margin-top:14px}
+.scroll{overflow-x:auto}
+.upd{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 12px;margin-top:12px;font-size:15px;color:var(--quiet)}
+.upd .btn{margin-top:0;border-color:var(--brand);color:var(--brand)}
+.btn:disabled{opacity:.55;cursor:wait}
+@media(prefers-reduced-motion:no-preference){.scrim.open .sheet{animation:up .22s ease-out}@keyframes up{from{transform:translateY(40px);opacity:.6}}}
+@media(max-width:380px){.match{grid-template-columns:50px minmax(0,1fr) 84px;gap:8px;padding:12px}.mini b{font-size:28px}h1{font-size:38px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>¿En qué canal echan el partido?</h1>
+    <p class="sub">Hora peninsular · los datos se buscan solos cada 3 horas</p>
+    <div class="upd"><span id="upd-txt" aria-live="polite">Cargando datos…</span><button class="btn" type="button" id="refresh">Buscar datos nuevos</button></div>
+    <nav class="tabs" aria-label="Secciones">
+      <a href="#partidos" id="tab-partidos">Partidos</a>
+      <a href="#diales" id="tab-diales">Tabla de diales</a>
+    </nav>
+  </header>
+
+  <main id="view-partidos">
+    <div class="label" id="plat-label">Tu televisión</div>
+    <div class="plats" id="plats" role="group" aria-labelledby="plat-label"></div>
+    <div class="label"><label for="q">Busca un equipo</label></div>
+    <input type="search" id="q" placeholder="Por ejemplo: Celta" autocomplete="off">
+    <div id="list"></div>
+  </main>
+
+  <main id="view-diales" hidden>
+    <p class="label">Diales por plataforma. Puedes corregirlos aquí; se guardan solo en este navegador.</p>
+    <div class="scroll"><table class="edit" id="edit"></table></div>
+    <button class="btn" id="reset">Volver a los valores de las fuentes</button>
+    <p class="note">«no» = el canal no está en esa plataforma. Vacío = falta el dato. Los diales de Movistar por satélite no los he podido comprobar: son el hueco que hay que rellenar a mano.</p>
+  </main>
+
+  <p class="note" id="foot">Estados: <span class="st ok">Confirmado</span> dos fuentes coinciden · <span class="st prob">Probable</span> una sola fuente · <span class="st bad">Revisar</span> las fuentes no coinciden en el canal o en el dial.</p>
+</div>
+
+<div class="scrim" id="scrim" aria-hidden="true">
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sh-title" id="sheet"></div>
+</div>
+
+<script>
+{
+/* Pon aquí la URL de tu Worker de Cloudflare (ver README). Vacío = el botón solo recarga los datos. */
+const WORKER_URL = '';
+let SRC={},PLATS=[],CHANNELS={},MATCHES=[],GEN=null;
+async function load(){
+  const r = await fetch('data.json?t='+Date.now(),{cache:'no-store'});
+  if(!r.ok) throw new Error('HTTP '+r.status);
+  const d = await r.json();
+  SRC=d.fuentes||{}; PLATS=d.plataformas||[]; CHANNELS=d.canales||{}; GEN=d.generado;
+  MATCHES=(d.partidos||[]).map(p=>({id:p.id,date:p.fecha,home:p.local,away:p.visitante,ch:(p.canales||[]).filter(c=>CHANNELS[c]),src:p.fuentes||[],estado:p.estado}));
+  return d;
+}
+const store = {
+  get(k,f){try{const v=localStorage.getItem(k);return v==null?f:JSON.parse(v)}catch(e){return f}},
+  set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+};
+let plat = store.get('plat','msat');
+let overrides = store.get('dials',{});
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+const fmtDay = d => { const t = new Date(d).toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long',timeZone:'Europe/Madrid'}); return t.charAt(0).toUpperCase()+t.slice(1); };
+const fmtTime = d => new Date(d).toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit',timeZone:'Europe/Madrid'});
+
+function dialOf(ch,p){
+  const base = CHANNELS[ch].d[p];
+  const o = overrides[ch+'.'+p];
+  if(o!==undefined) return {v:o,src:[],mine:true};
+  return base;
+}
+/* best dial for a match on a platform: first channel that the platform carries */
+function answer(m,p){
+  if(!m.ch.length) return {main:null,nochan:true};
+  const opts = m.ch.map(c=>({c,d:dialOf(c,p)}));
+  const yes = opts.filter(o=>o.d.v && o.d.v!=='no');
+  const unknown = opts.filter(o=>!o.d.v);
+  if(yes.length) return {main:yes[0],others:yes.slice(1)};
+  if(unknown.length) return {main:null,unknown:true,opt:unknown[0]};
+  return {main:null};
+}
+function status(m){
+  if(m.estado==='conflicto') return ['bad','Revisar: fuentes distintas'];
+  if(m.estado==='sin canal') return ['prob','Canal sin anunciar'];
+  if(m.ch.some(c=>{const d=dialOf(c,plat);return d.alt&&!d.mine})) return ['bad','Revisar: dial dudoso'];
+  return m.estado==='confirmado'?['ok','Confirmado']:['prob','Probable'];
+}
+function miniHTML(a){
+  if(a.main){const d=a.main.d;const t=d.label&&!/^\d/.test(d.label)?d.label:d.v;
+    return `<span class="mini${/^\d+$/.test(t)?'':' na'}"><small>CANAL</small><b>${esc(t)}</b></span>`;}
+  if(a.nochan) return `<span class="mini na"><small>CANAL</small><b>Sin anunciar</b></span>`;
+  if(a.unknown) return `<span class="mini na"><small>CANAL</small><b>Falta dato</b></span>`;
+  return `<span class="mini na"><small>CANAL</small><b>No lo tienes</b></span>`;
+}
+function renderPlats(){
+  $('#plats').innerHTML = PLATS.map(p=>`<button type="button" data-p="${p.id}" aria-pressed="${p.id===plat}">${esc(p.n)}</button>`).join('');
+}
+function renderList(){
+  const q = norm($('#q').value.trim());
+  const now = Date.now();
+  const rows = MATCHES.filter(m=>Date.parse(m.date)+2*36e5>now)
+    .filter(m=>!q||norm(m.home+' '+m.away).includes(q));
+  if(!rows.length){
+    $('#list').innerHTML = `<div class="empty">${q?'No hay próximos partidos de ese equipo.':'No hay partidos próximos en los datos.'}</div>`;return;
+  }
+  let html='',last='';
+  for(const m of rows){
+    const day=fmtDay(m.date);
+    if(day!==last){html+=`<div class="day">${esc(day)}</div>`;last=day}
+    const [cls,txt]=status(m);
+    html+=`<button class="match" type="button" data-m="${m.id}">
+      <span class="time">${fmtTime(m.date)}</span>
+      <span><span class="teams">${esc(m.home)} – ${esc(m.away)}</span>
+        <span class="chan" style="display:block">${m.ch.map(c=>esc(CHANNELS[c].n)).join(' · ')}</span>
+        <span class="st ${cls}">${txt}</span></span>
+      ${miniHTML(answer(m,plat))}
+    </button>`;
+  }
+  $('#list').innerHTML=html;
+}
+function dialText(d){
+  if(!d.v) return '<span style="color:var(--quiet)">falta dato</span>';
+  if(d.v==='no') return '<span style="color:var(--quiet)">no</span>';
+  return esc(d.label||d.v);
+}
+function openSheet(id){
+  const m = MATCHES.find(x=>x.id===id); if(!m) return;
+  const a = answer(m,plat); const pn = PLATS.find(p=>p.id===plat).n;
+  let big;
+  if(a.main){const d=a.main.d;const t=d.label&&!/^\d/.test(d.label)?d.label:d.v;
+    big=`<div class="n${/^\d+$/.test(t)?'':' txt'}">${esc(t)}</div><div class="p">${esc(CHANNELS[a.main.c].n)} en ${esc(pn)}</div>`+
+      (d.alt?`<div class="alt">Ojo: otra fuente dice el ${esc(d.alt)}</div>`:'')+
+      (d.note?`<div class="alt">${esc(d.note)}</div>`:'')+
+      (a.others.length?`<div class="alt">También en el ${a.others.map(o=>esc(o.d.label||o.d.v)+' ('+esc(CHANNELS[o.c].n)+')').join(', ')}</div>`:'');}
+  else if(a.nochan) big=`<div class="n txt">Sin anunciar</div><div class="p">Todavía no se sabe qué canal lo emite</div>`;
+  else if(a.unknown) big=`<div class="n txt">Falta el dial</div><div class="p">${esc(CHANNELS[a.opt.c].n)} en ${esc(pn)}: añádelo en la tabla de diales</div>`;
+  else big=`<div class="n txt">No lo tienes</div><div class="p">Este partido no se emite en ${esc(pn)}</div>`;
+  const rows = PLATS.map(p=>{
+    const cells = m.ch.map(c=>dialText(dialOf(c,p.id))).join(' / ');
+    return `<tr><td>${esc(p.n)}</td><td class="num">${cells}</td></tr>`}).join('');
+  const srcIds=[...new Set([...m.src,...m.ch.flatMap(c=>{const d=dialOf(c,plat);return [...(d.src||[]),...(d.altSrc?[d.altSrc]:[])]})])];
+  const [cls,txt]=status(m);
+  $('#sheet').innerHTML=`<button class="close" type="button" id="close">Cerrar</button>
+    <h2 id="sh-title">${esc(m.home)} – ${esc(m.away)}</h2>
+    <div>${esc(fmtDay(m.date))}, ${fmtTime(m.date)} h</div>
+    <span class="st ${cls}">${txt}</span>
+    <div class="lcd">${big}</div>
+    <table><thead><tr><th>Plataforma</th><th style="text-align:right">${m.ch.map(c=>esc(CHANNELS[c].n)).join(' / ')}</th></tr></thead><tbody>${rows}</tbody></table>
+    <p class="label">Fuentes</p>
+    <ul class="src">${srcIds.map(s=>`<li><a href="${(SRC[s]||{u:'#'}).u}" target="_blank" rel="noopener">${esc((SRC[s]||{n:s}).n)}</a></li>`).join('')}</ul>`;
+  $('#scrim').classList.add('open'); $('#scrim').setAttribute('aria-hidden','false');
+  $('#close').focus();
+}
+function closeSheet(){$('#scrim').classList.remove('open');$('#scrim').setAttribute('aria-hidden','true')}
+function renderEditor(){
+  const head=`<thead><tr><th>Canal</th>${PLATS.map(p=>`<th>${esc(p.n)}</th>`).join('')}</tr></thead>`;
+  const body=Object.entries(CHANNELS).map(([c,ch])=>`<tr><td>${esc(ch.n)}</td>${PLATS.map(p=>{
+    const d=dialOf(c,p.id);
+    return `<td><input aria-label="${esc(ch.n)} en ${esc(p.n)}" data-k="${c}.${p.id}" value="${esc(d.v||'')}" inputmode="numeric"></td>`}).join('')}</tr>`).join('');
+  $('#edit').innerHTML=head+'<tbody>'+body+'</tbody>';
+}
+function route(){
+  const v = location.hash==='#diales'?'diales':'partidos';
+  $('#view-partidos').hidden = v!=='partidos';
+  $('#view-diales').hidden = v!=='diales';
+  $('#tab-partidos').toggleAttribute('aria-current',v==='partidos');
+  $('#tab-diales').toggleAttribute('aria-current',v==='diales');
+  if(v==='partidos'){$('#tab-partidos').setAttribute('aria-current','page')}else{$('#tab-diales').setAttribute('aria-current','page')}
+  if(v==='diales') renderEditor(); else renderList();
+}
+$('#plats').addEventListener('click',e=>{const b=e.target.closest('button[data-p]');if(!b)return;plat=b.dataset.p;store.set('plat',plat);renderPlats();renderList()});
+$('#q').addEventListener('input',renderList);
+$('#list').addEventListener('click',e=>{const b=e.target.closest('.match');if(b)openSheet(b.dataset.m)});
+$('#scrim').addEventListener('click',e=>{if(e.target.id==='scrim'||e.target.id==='close')closeSheet()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet()});
+$('#edit').addEventListener('change',e=>{const i=e.target.closest('input[data-k]');if(!i)return;
+  const [c,p]=i.dataset.k.split('.');const base=CHANNELS[c].d[p].v||'';const val=i.value.trim().toLowerCase();
+  if(val===base) delete overrides[i.dataset.k]; else overrides[i.dataset.k]=val;
+  store.set('dials',overrides)});
+$('#reset').addEventListener('click',()=>{overrides={};store.set('dials',overrides);renderEditor()});
+window.addEventListener('hashchange',route);
+const fmtGen = g => g ? new Date(g).toLocaleString('es-ES',{weekday:'short',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',timeZone:'Europe/Madrid'}) : '—';
+const say = t => { $('#upd-txt').textContent = t; };
+function start(){
+  if(!PLATS.some(p=>p.id===plat)) plat = PLATS[0] ? PLATS[0].id : plat;
+  renderPlats(); route(); say('Actualizado: '+fmtGen(GEN));
+}
+load().then(start).catch(()=>{say('No se han podido cargar los datos.');$('#list').innerHTML='<div class="empty">No se han podido cargar los datos. Prueba a recargar la página.</div>'});
+const sleep = ms => new Promise(r=>setTimeout(r,ms));
+$('#refresh').addEventListener('click', async () => {
+  const btn = $('#refresh'); btn.disabled = true;
+  const before = GEN;
+  try{
+    if(!WORKER_URL){ await load(); start(); say('Recargado. Actualizado: '+fmtGen(GEN)); return; }
+    say('Pidiendo una búsqueda nueva…');
+    const r = await fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});
+    const j = await r.json().catch(()=>({}));
+    if(!r.ok && r.status!==202) { say('No se ha podido lanzar la búsqueda'+(j.motivo?': '+j.motivo:'')+'.'); return; }
+    say(j.estado==='en_marcha' ? 'Ya hay una búsqueda en marcha. Espera 2–3 minutos…' : 'Buscando datos nuevos. Tarda 2–3 minutos…');
+    for(let i=0;i<18;i++){            // hasta 6 minutos
+      await sleep(20000);
+      try{ await load(); }catch(e){ continue; }
+      if(GEN!==before){ start(); say('Datos nuevos. Actualizado: '+fmtGen(GEN)); return; }
+    }
+    say('La búsqueda tarda más de lo normal. Vuelve a mirar en unos minutos.');
+  }catch(e){ say('Sin conexión. Prueba otra vez.'); }
+  finally{ btn.disabled = false; }
+});
+}
+</script>
+</body>
+</html>

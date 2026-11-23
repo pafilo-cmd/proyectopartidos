@@ -1,0 +1,299 @@
+{
+ "generado": "2026-11-23T20:35:52+01:00",
+ "plataformas": [
+  {
+   "id": "mfibra",
+   "n": "Movistar fibra"
+  },
+  {
+   "id": "msat",
+   "n": "Movistar satélite"
+  },
+  {
+   "id": "orange",
+   "n": "Orange TV"
+  },
+  {
+   "id": "vodafone",
+   "n": "Vodafone"
+  }
+ ],
+ "canales": {
+  "laliga": {
+   "n": "LALIGA TV por M+",
+   "d": {
+    "mfibra": {
+     "v": "54",
+     "src": [
+      "movistar",
+      "flash",
+      "roams"
+     ]
+    },
+    "msat": {
+     "v": "",
+     "src": []
+    },
+    "orange": {
+     "v": "110",
+     "src": [
+      "flash"
+     ]
+    },
+    "vodafone": {
+     "v": "no",
+     "src": []
+    }
+   }
+  },
+  "dazn": {
+   "n": "DAZN LaLiga",
+   "d": {
+    "mfibra": {
+     "v": "55",
+     "src": [
+      "movistar",
+      "flash",
+      "roams"
+     ]
+    },
+    "msat": {
+     "v": "53",
+     "src": [
+      "avpasion"
+     ],
+     "note": "dato antiguo, sin confirmar"
+    },
+    "orange": {
+     "v": "113",
+     "src": [
+      "flash"
+     ]
+    },
+    "vodafone": {
+     "v": "app",
+     "label": "App DAZN",
+     "src": [
+      "selectra"
+     ]
+    }
+   }
+  },
+  "mplus": {
+   "n": "Movistar Plus+",
+   "d": {
+    "mfibra": {
+     "v": "7",
+     "src": [
+      "movistar",
+      "roams"
+     ],
+     "alt": "8",
+     "altSrc": "flash"
+    },
+    "msat": {
+     "v": "",
+     "src": []
+    },
+    "orange": {
+     "v": "107",
+     "label": "107 (Fútbol 1)",
+     "src": [
+      "flash",
+      "kelisto"
+     ]
+    },
+    "vodafone": {
+     "v": "no",
+     "src": []
+    }
+   }
+  }
+ },
+ "fuentes": {
+  "movistar": {
+   "n": "Movistar · calendario LaLiga",
+   "u": "https://www.movistar.es/tv/agenda-deportiva/calendario-laliga-futbol-partidos-televisados"
+  },
+  "flash": {
+   "n": "Flashscore · jornada 13 26/27",
+   "u": "https://www.flashscore.es/noticias/futbol-laliga-horarios-canales-television-donde-ver-jornada-13-temporada-26-27-real-madrid-barcelona/CdBrsthU/"
+  },
+  "futbolweb": {
+   "n": "Futbolweb · horarios jornada 14",
+   "u": "https://futbolweb.net/calendario-laliga-2026-2027/jornada/14"
+  },
+  "comuniate": {
+   "n": "Comuniate · Celta–Villarreal",
+   "u": "https://www.comuniate.com/partido/1/14/celta-villarreal"
+  },
+  "roams": {
+   "n": "Roams · diales de Movistar",
+   "u": "https://roams.es/companias-telefonicas/movistar/guias/television/canales/"
+  },
+  "avpasion": {
+   "n": "AVPasión · DAZN LaLiga por satélite (artículo antiguo)",
+   "u": "https://avpasion.com/clientes-movistar-satelite-dazn-laliga"
+  },
+  "selectra": {
+   "n": "Selectra · DAZN en Vodafone",
+   "u": "https://selectra.es/internet-telefono/noticias/donde-ver-valencia-real-madrid"
+  },
+  "kelisto": {
+   "n": "Kelisto · Fútbol 1 en Orange",
+   "u": "https://www.kelisto.es/internet/consejos-y-analisis/ofertas-para-ver-la-liga"
+  },
+  "thesportsdb": {
+   "n": "TheSportsDB (API gratuita)",
+   "u": "https://www.thesportsdb.com/"
+  }
+ },
+ "partidos": [
+  {
+   "id": "2026-11-23-lev-elc",
+   "fecha": "2026-11-23T21:00:00+01:00",
+   "local": "Levante",
+   "visitante": "Elche",
+   "canales": [
+    "dazn"
+   ],
+   "fuentes": [
+    "flash"
+   ],
+   "estado": "probable"
+  },
+  {
+   "id": "2026-11-27-lev-rac",
+   "fecha": "2026-11-27T21:00:00+01:00",
+   "local": "Levante",
+   "visitante": "Racing de Santander",
+   "canales": [
+    "laliga"
+   ],
+   "fuentes": [
+    "movistar"
+   ],
+   "estado": "probable"
+  },
+  {
+   "id": "2026-11-28-rea-ray",
+   "fecha": "2026-11-28T14:00:00+01:00",
+   "local": "Real Betis",
+   "visitante": "Rayo Vallecano",
+   "canales": [
+    "laliga"
+   ],
+   "fuentes": [
+    "movistar"
+   ],
+   "estado": "probable"
+  },
+  {
+   "id": "2026-11-28-mal-ath",
+   "fecha": "2026-11-28T16:15:00+01:00",
+   "local": "Málaga",
+   "visitante": "Athletic Club",
+   "canales": [
+    "dazn"
+   ],
+   "fuentes": [
+    "movistar"
+   ],
+   "estado": "probable"
+  },
+  {
+   "id": "2026-11-28-elc-atl",
+   "fecha": "2026-11-28T18:30:00+01:00",
+   "local": "Elche",
+   "visitante": "Atlético de Madrid",
+   "canales": [
+    "laliga",
+    "mplus"
+   ],
+   "fuentes": [
+    "movistar"
+   ],
+   "estado": "probable"
+  },
+  {
+   "id": "2026-11-28-rea-ala",
+   "fecha": "2026-11-28T21:00:00+01:00",
+   "local": "Real Madrid",
+   "visitante": "Alavés",
+   "canales": [
+    "laliga"
+   ],
+   "fuentes": [
+    "movistar"
+   ],
+   "estado": "probable"
+  },
+  {
+   "id": "2026-11-29-val-osa",
+   "fecha": "2026-11-29T14:00:00+01:00",
+   "local": "Valencia",
+   "visitante": "Osasuna",
+   "canales": [
+    "dazn"
+   ],
+   "fuentes": [
+    "movistar"
+   ],
+   "estado": "probable"
+  },
+  {
+   "id": "2026-11-29-dep-bar",
+   "fecha": "2026-11-29T16:15:00+01:00",
+   "local": "Deportivo",
+   "visitante": "Barcelona",
+   "canales": [
+    "laliga"
+   ],
+   "fuentes": [
+    "movistar"
+   ],
+   "estado": "probable"
+  },
+  {
+   "id": "2026-11-29-cel-vil",
+   "fecha": "2026-11-29T18:30:00+01:00",
+   "local": "Celta",
+   "visitante": "Villarreal",
+   "canales": [
+    "laliga"
+   ],
+   "fuentes": [
+    "comuniate",
+    "movistar"
+   ],
+   "estado": "confirmado"
+  },
+  {
+   "id": "2026-11-29-rea-sev",
+   "fecha": "2026-11-29T21:00:00+01:00",
+   "local": "Real Sociedad",
+   "visitante": "Sevilla",
+   "canales": [
+    "laliga"
+   ],
+   "fuentes": [
+    "movistar"
+   ],
+   "estado": "probable"
+  },
+  {
+   "id": "2026-11-30-esp-get",
+   "fecha": "2026-11-30T21:00:00+01:00",
+   "local": "Espanyol",
+   "visitante": "Getafe",
+   "canales": [
+    "dazn"
+   ],
+   "fuentes": [
+    "movistar"
+   ],
+   "estado": "probable"
+  }
+ ],
+ "avisos": []
+}
