@@ -1,0 +1,16 @@
+{
+  "_nota": "Partidos añadidos a mano (cada uno cuenta como un voto por cada fuente que lista). El script los cruza con las fuentes automáticas.",
+  "partidos": [
+    {"fecha": "2026-11-23T21:00:00+01:00", "local": "Levante", "visitante": "Elche", "canales": ["dazn"], "fuentes": ["flash"]},
+    {"fecha": "2026-11-27T21:00:00+01:00", "local": "Levante", "visitante": "Racing de Santander", "canales": ["laliga"], "fuentes": ["movistar"]},
+    {"fecha": "2026-11-28T14:00:00+01:00", "local": "Real Betis", "visitante": "Rayo Vallecano", "canales": ["laliga"], "fuentes": ["movistar"]},
+    {"fecha": "2026-11-28T16:15:00+01:00", "local": "Málaga", "visitante": "Athletic Club", "canales": ["dazn"], "fuentes": ["movistar"]},
+    {"fecha": "2026-11-28T18:30:00+01:00", "local": "Elche", "visitante": "Atlético de Madrid", "canales": ["laliga", "mplus"], "fuentes": ["movistar"]},
+    {"fecha": "2026-11-28T21:00:00+01:00", "local": "Real Madrid", "visitante": "Alavés", "canales": ["laliga"], "fuentes": ["movistar"]},
+    {"fecha": "2026-11-29T14:00:00+01:00", "local": "Valencia", "visitante": "Osasuna", "canales": ["dazn"], "fuentes": ["movistar"]},
+    {"fecha": "2026-11-29T16:15:00+01:00", "local": "Deportivo", "visitante": "Barcelona", "canales": ["laliga"], "fuentes": ["movistar"]},
+    {"fecha": "2026-11-29T18:30:00+01:00", "local": "Celta", "visitante": "Villarreal", "canales": ["laliga"], "fuentes": ["movistar", "comuniate"]},
+    {"fecha": "2026-11-29T21:00:00+01:00", "local": "Real Sociedad", "visitante": "Sevilla", "canales": ["laliga"], "fuentes": ["movistar"]},
+    {"fecha": "2026-11-30T21:00:00+01:00", "local": "Espanyol", "visitante": "Getafe", "canales": ["dazn"], "fuentes": ["movistar"]}
+  ]
+}
