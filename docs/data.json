@@ -1,5 +1,5 @@
 {
- "generado": "2026-11-23T20:35:52+01:00",
+ "generado": "2026-11-23T20:46:18+01:00",
  "plataformas": [
   {
    "id": "mfibra",
@@ -158,7 +158,8 @@
     "dazn"
    ],
    "fuentes": [
-    "flash"
+    "flash",
+    "thesportsdb"
    ],
    "estado": "probable"
   },
