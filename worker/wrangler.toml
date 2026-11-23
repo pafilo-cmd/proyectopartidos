@@ -1,0 +1,10 @@
+name = "proyectopartidos-actualizar"
+main = "worker.js"
+compatibility_date = "2026-11-01"
+
+[vars]
+REPO = "pafilo-cmd/proyectopartidos"
+ALLOWED_ORIGIN = "https://proyectopartidos.pureapps.es"
+
+# El token va como secreto, no aquí:
+#   npx wrangler secret put GITHUB_TOKEN
