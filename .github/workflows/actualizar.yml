@@ -4,6 +4,9 @@ on:
   schedule:
     - cron: "17 */3 * * *"   # cada 3 horas (hora UTC)
   workflow_dispatch:          # botón de la web (vía el Worker) o a mano desde GitHub
+  push:                       # cuando cambias la web, los diales o el script
+    branches: [main]
+    paths: ["docs/index.html", "data/**", "scripts/**", ".github/workflows/**"]
 
 permissions:
   contents: write
@@ -36,11 +39,17 @@ jobs:
           git config user.email "actions@users.noreply.github.com"
           git add docs/data.json
           git diff --cached --quiet || git commit -m "Datos actualizados $(date -u +%Y-%m-%dT%H:%MZ)"
-          git push
+          git pull --rebase origin main && git push
 
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
           path: docs
       - id: deploy
+        uses: actions/deploy-pages@v4
+        continue-on-error: true
+      - name: Reintentar el despliegue si GitHub falló
+        if: steps.deploy.outcome == 'failure'
+        run: sleep 30
+      - if: steps.deploy.outcome == 'failure'
         uses: actions/deploy-pages@v4
