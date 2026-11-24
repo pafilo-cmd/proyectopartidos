@@ -1,5 +1,5 @@
 {
- "generado": "2026-11-24T17:17:39+01:00",
+ "generado": "2026-11-24T17:36:21+01:00",
  "plataformas": [
   {
    "id": "mfibra",
@@ -25,14 +25,20 @@
     "mfibra": {
      "v": "54",
      "src": [
-      "movistar",
+      "adslzone",
       "flash",
-      "roams"
+      "movistar",
+      "roams",
+      "xatakamovil"
      ]
     },
     "msat": {
-     "v": "",
-     "src": []
+     "v": "54",
+     "src": [
+      "adslzone",
+      "xatakamovil"
+     ],
+     "note": "mismo dial que en fibra; confírmalo en el deco"
     },
     "orange": {
      "v": "110",
@@ -52,17 +58,20 @@
     "mfibra": {
      "v": "55",
      "src": [
-      "movistar",
+      "adslzone",
       "flash",
-      "roams"
+      "movistar",
+      "roams",
+      "xatakamovil"
      ]
     },
     "msat": {
-     "v": "53",
+     "v": "55",
      "src": [
-      "avpasion"
+      "adslzone",
+      "xatakamovil"
      ],
-     "note": "dato antiguo, sin confirmar"
+     "note": "mismo dial que en fibra; confírmalo en el deco"
     },
     "orange": {
      "v": "113",
@@ -86,14 +95,18 @@
      "v": "7",
      "src": [
       "movistar",
-      "roams"
-     ],
-     "alt": "8",
-     "altSrc": "flash"
+      "roams",
+      "movistarblog",
+      "adslzone"
+     ]
     },
     "msat": {
-     "v": "",
-     "src": []
+     "v": "7",
+     "src": [
+      "movistarblog",
+      "adslzone"
+     ],
+     "note": "mismo dial que en fibra; confírmalo en el deco"
     },
     "orange": {
      "v": "107",
@@ -132,7 +145,7 @@
    "u": "https://roams.es/companias-telefonicas/movistar/guias/television/canales/"
   },
   "avpasion": {
-   "n": "AVPasión · DAZN LaLiga por satélite (artículo antiguo)",
+   "n": "AVPasión · DAZN LaLiga en el dial 53 (2022, desactualizado)",
    "u": "https://avpasion.com/clientes-movistar-satelite-dazn-laliga"
   },
   "selectra": {
@@ -146,6 +159,18 @@
   "thesportsdb": {
    "n": "TheSportsDB (API gratuita)",
    "u": "https://www.thesportsdb.com/"
+  },
+  "adslzone": {
+   "n": "ADSLZone · diales de Movistar Plus+ (marca los canales solo satélite / solo fibra)",
+   "u": "https://www.adslzone.net/operadores/movistar/lista-canales-diales-ver-movistar-tv/"
+  },
+  "xatakamovil": {
+   "n": "Xataka Móvil · diales de deportes de Movistar Plus+",
+   "u": "https://www.xatakamovil.com/movistar/cambios-movistar-plus-a-partir-hoy-puedes-ver-gratis-nuevo-canal-deportes"
+  },
+  "movistarblog": {
+   "n": "Comunidad Movistar · dial 7 Movistar Plus+, dial 8 Vamos",
+   "u": "https://comunidad.movistar.es/blog/blog-movisfera/nuevos-diales-de-movistar-plus/4746470"
   }
  },
  "partidos": [
