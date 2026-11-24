@@ -113,7 +113,7 @@ ul.src{padding-left:20px;font-size:15px}
 <script>
 {
 /* Pon aquí la URL de tu Worker de Cloudflare (ver README). Vacío = el botón solo recarga los datos. */
-const WORKER_URL = '';
+const WORKER_URL = 'https://proyectopartidos-actualizar.purepocha-server.workers.dev';
 let SRC={},PLATS=[],CHANNELS={},MATCHES=[],GEN=null;
 async function load(){
   const r = await fetch('data.json?t='+Date.now(),{cache:'no-store'});
