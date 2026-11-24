@@ -1,40 +1,176 @@
 {
   "_nota": "Diales por plataforma. v = número; \"no\" = el canal no está en esa plataforma; \"\" = falta el dato. Edita este archivo a mano cuando cambie algo.",
   "plataformas": [
-    {"id": "mfibra", "n": "Movistar fibra"},
-    {"id": "msat", "n": "Movistar satélite"},
-    {"id": "orange", "n": "Orange TV"},
-    {"id": "vodafone", "n": "Vodafone"}
+    {
+      "id": "mfibra",
+      "n": "Movistar fibra"
+    },
+    {
+      "id": "msat",
+      "n": "Movistar satélite"
+    },
+    {
+      "id": "orange",
+      "n": "Orange TV"
+    },
+    {
+      "id": "vodafone",
+      "n": "Vodafone"
+    }
   ],
   "canales": {
-    "laliga": {"n": "LALIGA TV por M+", "d": {
-      "mfibra": {"v": "54", "src": ["movistar", "flash", "roams"]},
-      "msat": {"v": "", "src": []},
-      "orange": {"v": "110", "src": ["flash"]},
-      "vodafone": {"v": "no", "src": []}
-    }},
-    "dazn": {"n": "DAZN LaLiga", "d": {
-      "mfibra": {"v": "55", "src": ["movistar", "flash", "roams"]},
-      "msat": {"v": "53", "src": ["avpasion"], "note": "dato antiguo, sin confirmar"},
-      "orange": {"v": "113", "src": ["flash"]},
-      "vodafone": {"v": "app", "label": "App DAZN", "src": ["selectra"]}
-    }},
-    "mplus": {"n": "Movistar Plus+", "d": {
-      "mfibra": {"v": "7", "src": ["movistar", "roams"], "alt": "8", "altSrc": "flash"},
-      "msat": {"v": "", "src": []},
-      "orange": {"v": "107", "label": "107 (Fútbol 1)", "src": ["flash", "kelisto"]},
-      "vodafone": {"v": "no", "src": []}
-    }}
+    "laliga": {
+      "n": "LALIGA TV por M+",
+      "d": {
+        "mfibra": {
+          "v": "54",
+          "src": [
+            "adslzone",
+            "flash",
+            "movistar",
+            "roams",
+            "xatakamovil"
+          ]
+        },
+        "msat": {
+          "v": "54",
+          "src": [
+            "adslzone",
+            "xatakamovil"
+          ],
+          "note": "mismo dial que en fibra; confírmalo en el deco"
+        },
+        "orange": {
+          "v": "110",
+          "src": [
+            "flash"
+          ]
+        },
+        "vodafone": {
+          "v": "no",
+          "src": []
+        }
+      }
+    },
+    "dazn": {
+      "n": "DAZN LaLiga",
+      "d": {
+        "mfibra": {
+          "v": "55",
+          "src": [
+            "adslzone",
+            "flash",
+            "movistar",
+            "roams",
+            "xatakamovil"
+          ]
+        },
+        "msat": {
+          "v": "55",
+          "src": [
+            "adslzone",
+            "xatakamovil"
+          ],
+          "note": "mismo dial que en fibra; confírmalo en el deco"
+        },
+        "orange": {
+          "v": "113",
+          "src": [
+            "flash"
+          ]
+        },
+        "vodafone": {
+          "v": "app",
+          "label": "App DAZN",
+          "src": [
+            "selectra"
+          ]
+        }
+      }
+    },
+    "mplus": {
+      "n": "Movistar Plus+",
+      "d": {
+        "mfibra": {
+          "v": "7",
+          "src": [
+            "movistar",
+            "roams",
+            "movistarblog",
+            "adslzone"
+          ]
+        },
+        "msat": {
+          "v": "7",
+          "src": [
+            "movistarblog",
+            "adslzone"
+          ],
+          "note": "mismo dial que en fibra; confírmalo en el deco"
+        },
+        "orange": {
+          "v": "107",
+          "label": "107 (Fútbol 1)",
+          "src": [
+            "flash",
+            "kelisto"
+          ]
+        },
+        "vodafone": {
+          "v": "no",
+          "src": []
+        }
+      }
+    }
   },
   "fuentes": {
-    "movistar": {"n": "Movistar · calendario LaLiga", "u": "https://www.movistar.es/tv/agenda-deportiva/calendario-laliga-futbol-partidos-televisados"},
-    "flash": {"n": "Flashscore · jornada 13 26/27", "u": "https://www.flashscore.es/noticias/futbol-laliga-horarios-canales-television-donde-ver-jornada-13-temporada-26-27-real-madrid-barcelona/CdBrsthU/"},
-    "futbolweb": {"n": "Futbolweb · horarios jornada 14", "u": "https://futbolweb.net/calendario-laliga-2026-2027/jornada/14"},
-    "comuniate": {"n": "Comuniate · Celta–Villarreal", "u": "https://www.comuniate.com/partido/1/14/celta-villarreal"},
-    "roams": {"n": "Roams · diales de Movistar", "u": "https://roams.es/companias-telefonicas/movistar/guias/television/canales/"},
-    "avpasion": {"n": "AVPasión · DAZN LaLiga por satélite (artículo antiguo)", "u": "https://avpasion.com/clientes-movistar-satelite-dazn-laliga"},
-    "selectra": {"n": "Selectra · DAZN en Vodafone", "u": "https://selectra.es/internet-telefono/noticias/donde-ver-valencia-real-madrid"},
-    "kelisto": {"n": "Kelisto · Fútbol 1 en Orange", "u": "https://www.kelisto.es/internet/consejos-y-analisis/ofertas-para-ver-la-liga"},
-    "thesportsdb": {"n": "TheSportsDB (API gratuita)", "u": "https://www.thesportsdb.com/"}
+    "movistar": {
+      "n": "Movistar · calendario LaLiga",
+      "u": "https://www.movistar.es/tv/agenda-deportiva/calendario-laliga-futbol-partidos-televisados"
+    },
+    "flash": {
+      "n": "Flashscore · jornada 13 26/27",
+      "u": "https://www.flashscore.es/noticias/futbol-laliga-horarios-canales-television-donde-ver-jornada-13-temporada-26-27-real-madrid-barcelona/CdBrsthU/"
+    },
+    "futbolweb": {
+      "n": "Futbolweb · horarios jornada 14",
+      "u": "https://futbolweb.net/calendario-laliga-2026-2027/jornada/14"
+    },
+    "comuniate": {
+      "n": "Comuniate · Celta–Villarreal",
+      "u": "https://www.comuniate.com/partido/1/14/celta-villarreal"
+    },
+    "roams": {
+      "n": "Roams · diales de Movistar",
+      "u": "https://roams.es/companias-telefonicas/movistar/guias/television/canales/"
+    },
+    "avpasion": {
+      "n": "AVPasión · DAZN LaLiga en el dial 53 (2022, desactualizado)",
+      "u": "https://avpasion.com/clientes-movistar-satelite-dazn-laliga"
+    },
+    "selectra": {
+      "n": "Selectra · DAZN en Vodafone",
+      "u": "https://selectra.es/internet-telefono/noticias/donde-ver-valencia-real-madrid"
+    },
+    "kelisto": {
+      "n": "Kelisto · Fútbol 1 en Orange",
+      "u": "https://www.kelisto.es/internet/consejos-y-analisis/ofertas-para-ver-la-liga"
+    },
+    "thesportsdb": {
+      "n": "TheSportsDB (API gratuita)",
+      "u": "https://www.thesportsdb.com/"
+    },
+    "adslzone": {
+      "n": "ADSLZone · diales de Movistar Plus+ (marca los canales solo satélite / solo fibra)",
+      "u": "https://www.adslzone.net/operadores/movistar/lista-canales-diales-ver-movistar-tv/"
+    },
+    "xatakamovil": {
+      "n": "Xataka Móvil · diales de deportes de Movistar Plus+",
+      "u": "https://www.xatakamovil.com/movistar/cambios-movistar-plus-a-partir-hoy-puedes-ver-gratis-nuevo-canal-deportes"
+    },
+    "movistarblog": {
+      "n": "Comunidad Movistar · dial 7 Movistar Plus+, dial 8 Vamos",
+      "u": "https://comunidad.movistar.es/blog/blog-movisfera/nuevos-diales-de-movistar-plus/4746470"
+    }
   }
 }
