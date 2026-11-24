@@ -1,5 +1,5 @@
 {
- "generado": "2026-11-23T20:46:18+01:00",
+ "generado": "2026-11-24T06:21:46+01:00",
  "plataformas": [
   {
    "id": "mfibra",
@@ -150,20 +150,6 @@
  },
  "partidos": [
   {
-   "id": "2026-11-23-lev-elc",
-   "fecha": "2026-11-23T21:00:00+01:00",
-   "local": "Levante",
-   "visitante": "Elche",
-   "canales": [
-    "dazn"
-   ],
-   "fuentes": [
-    "flash",
-    "thesportsdb"
-   ],
-   "estado": "probable"
-  },
-  {
    "id": "2026-11-27-lev-rac",
    "fecha": "2026-11-27T21:00:00+01:00",
    "local": "Levante",
@@ -172,7 +158,8 @@
     "laliga"
    ],
    "fuentes": [
-    "movistar"
+    "movistar",
+    "thesportsdb"
    ],
    "estado": "probable"
   },
