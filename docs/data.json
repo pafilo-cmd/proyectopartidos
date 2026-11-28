@@ -1,5 +1,5 @@
 {
- "generado": "2026-11-27T17:44:22+01:00",
+ "generado": "2026-11-28T02:28:37+01:00",
  "plataformas": [
   {
    "id": "mfibra",
@@ -175,20 +175,6 @@
  },
  "partidos": [
   {
-   "id": "2026-11-27-lev-rac",
-   "fecha": "2026-11-27T21:00:00+01:00",
-   "local": "Levante",
-   "visitante": "Racing de Santander",
-   "canales": [
-    "laliga"
-   ],
-   "fuentes": [
-    "movistar",
-    "thesportsdb"
-   ],
-   "estado": "probable"
-  },
-  {
    "id": "2026-11-28-rea-ray",
    "fecha": "2026-11-28T14:00:00+01:00",
    "local": "Real Betis",
@@ -197,7 +183,8 @@
     "laliga"
    ],
    "fuentes": [
-    "movistar"
+    "movistar",
+    "thesportsdb"
    ],
    "estado": "probable"
   },
